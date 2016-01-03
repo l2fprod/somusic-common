@@ -73,19 +73,6 @@ public class Utils {
       input.close();
     }
   }
-
-  private final static int CACHE_DURATION_IN_SECOND = 60 * 60 * 24 * 2; // 2
-                                                                        // days
-  private final static long CACHE_DURATION_IN_MS = CACHE_DURATION_IN_SECOND * 1000;
-/*
-  public static void setExpire(HttpServletResponse response) {
-    long now = System.currentTimeMillis();
-    response.addHeader("Cache-Control", "max-age=" + CACHE_DURATION_IN_SECOND);
-    response.addHeader("Cache-Control", "must-revalidate");// optional
-    response.setDateHeader("Last-Modified", now);
-    response.setDateHeader("Expires", now + CACHE_DURATION_IN_MS);
-  }
-*/
   
   public static Date dayAfter(Date date) {
     Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
