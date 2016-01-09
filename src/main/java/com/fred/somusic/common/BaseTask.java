@@ -7,7 +7,7 @@ import org.springframework.cloud.CloudFactory;
 public class BaseTask {
 
   private CouchDbInstance getDb() {
-    CouchDbInstance couchDb = new CloudFactory().getCloud().getServiceConnector("cloudant", CouchDbInstance.class,
+    CouchDbInstance couchDb = new CloudFactory().getCloud().getServiceConnector("somusic-cloudant", CouchDbInstance.class,
         null);
     return couchDb;
   }
