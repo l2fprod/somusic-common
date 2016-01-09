@@ -1,12 +1,12 @@
-package com.fred.somusic.common;
+package com.fredericlavigne.somusic.common;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.fred.somusic.common.providers.Provider;
-import com.fred.somusic.common.providers.SpotifyProvider;
-import com.fred.somusic.common.providers.Track;
+import com.fredericlavigne.somusic.common.providers.Provider;
+import com.fredericlavigne.somusic.common.providers.SpotifyProvider;
+import com.fredericlavigne.somusic.common.providers.Track;
 
 public class SpotifyProviderTest {
 

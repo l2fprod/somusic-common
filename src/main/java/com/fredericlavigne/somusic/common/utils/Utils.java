@@ -1,4 +1,4 @@
-package com.fred.somusic.common.utils;
+package com.fredericlavigne.somusic.common.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

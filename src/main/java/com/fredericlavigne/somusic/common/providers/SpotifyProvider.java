@@ -1,4 +1,4 @@
-package com.fred.somusic.common.providers;
+package com.fredericlavigne.somusic.common.providers;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -7,8 +7,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import com.fred.somusic.common.utils.GetWithThrottle;
-import com.fred.somusic.common.utils.Log;
+import com.fredericlavigne.somusic.common.utils.GetWithThrottle;
+import com.fredericlavigne.somusic.common.utils.Log;
 
 // https://developer.spotify.com/web-api/endpoint-reference/
 // https://developer.spotify.com/web-api/console/

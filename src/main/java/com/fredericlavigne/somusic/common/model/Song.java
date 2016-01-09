@@ -1,4 +1,4 @@
-package com.fred.somusic.common.model;
+package com.fredericlavigne.somusic.common.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.fred.somusic.common.utils;
+package com.fredericlavigne.somusic.common.utils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

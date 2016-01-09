@@ -1,4 +1,4 @@
-package com.fred.somusic.common.providers;
+package com.fredericlavigne.somusic.common.providers;
 
 import java.io.IOException;
 import java.util.HashMap;

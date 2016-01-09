@@ -1,4 +1,4 @@
-package com.fred.somusic.common;
+package com.fredericlavigne.somusic.common;
 
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;

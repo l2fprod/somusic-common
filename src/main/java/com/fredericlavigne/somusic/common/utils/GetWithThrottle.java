@@ -1,4 +1,4 @@
-package com.fred.somusic.common.utils;
+package com.fredericlavigne.somusic.common.utils;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ public class GetWithThrottle {
 	private String basicAuthHeader;
 	private static int maxRetry = 10;
 
-	@SuppressWarnings("restriction")
 	public void setBasicAuthorization(String username, String password) {
 		String userpass = username + ":" + password;
 		basicAuthHeader = "Basic "
