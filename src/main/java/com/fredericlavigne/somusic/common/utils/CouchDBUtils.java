@@ -3,6 +3,7 @@ package com.fredericlavigne.somusic.common.utils;
 import java.util.logging.Logger;
 
 import org.ektorp.CouchDbConnector;
+import org.ektorp.DbAccessException;
 import org.ektorp.DocumentNotFoundException;
 import org.ektorp.support.DesignDocument;
 import org.ektorp.support.DesignDocument.View;
@@ -15,7 +16,7 @@ public class CouchDBUtils {
       String viewDefinition) {
     String designDocumentId = "_design/" + designDocumentName;
     DesignDocument dd;
-    try {     
+    try {
       dd = db.get(DesignDocument.class, designDocumentId);
       LOGGER.info("Design document with id " + designDocumentId + " already exists");
     } catch (DocumentNotFoundException e) {
@@ -32,4 +33,24 @@ public class CouchDBUtils {
       db.update(dd);
     }
   }
+
+  public static void doWithinLimits(Runnable runnable) {
+    boolean limitCaught = false;
+    do {
+      try {
+        limitCaught = false;
+        runnable.run();
+      } catch (DbAccessException dbex) {
+        if (dbex.getLocalizedMessage().contains("429")) {
+          limitCaught = true;
+          LOGGER.info("Being rate limited by Cloudant, let's pause a bit before retrying");
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+          }
+        }
+      }
+    } while (limitCaught);
+  }
+
 }
