@@ -16,10 +16,39 @@ public class SpotifyProvider extends Provider {
 
   private final GetWithThrottle fetcher = new GetWithThrottle();
 
+  private String clientId = System.getenv("SPOTIFY_CLIENT_ID");
+  private String clientSecret = System.getenv("SPOTIFY_CLIENT_SECRET");
+  
+  private long tokenExpiration = -1;
+  
   public SpotifyProvider() {
     super("spotify");
   }
 
+  public void setCredentials(String clientId, String clientSecret) {
+    this.clientId = clientId;
+    this.clientSecret = clientSecret;    
+  }
+  
+  private void checkAccessToken() throws IOException {
+    if (System.currentTimeMillis() < tokenExpiration) {
+      return;
+    }
+    
+    fetcher.setAccessToken(null);
+    fetcher.setBasicAuthorization(clientId, clientSecret);
+    
+    String accessToken = fetcher.postBody("https://accounts.spotify.com/api/token",
+        "grant_type=client_credentials".getBytes("UTF-8"));
+    JSONObject json = (JSONObject) JSONValue.parse(accessToken);
+
+    fetcher.setAccessToken("Bearer " + (String)json.get("access_token"));
+    long seconds = (long)json.get("expires_in");
+    
+    tokenExpiration = System.currentTimeMillis() + seconds * 1000;   
+  }
+
+  
   @Override
   public boolean accept(String query) {
     return query != null
@@ -49,6 +78,8 @@ public class SpotifyProvider extends Provider {
 
   @Override
   public String find(Item lookup) throws IOException {
+    checkAccessToken();
+    
     String type;
     String query;
     if (lookup instanceof Track) {
@@ -86,6 +117,7 @@ public class SpotifyProvider extends Provider {
   }
 
   private Item lookup(String spotifyUrl) throws IOException {
+    checkAccessToken();
 
     //https://embed.spotify.com/?uri=spotify:track:5VsP1xlRJbb5SYuhvYSu7A
     if (spotifyUrl.startsWith("https://embed.spotify.com/?")) {
@@ -129,6 +161,7 @@ public class SpotifyProvider extends Provider {
   }
 
   private Item extractAlbumV1(String spotifyUrl) throws IOException {
+    checkAccessToken();
 
     // extract id from url
     String trackId = spotifyUrl.substring(spotifyUrl.indexOf("album")
@@ -158,6 +191,7 @@ public class SpotifyProvider extends Provider {
   }
 
   private Item extractTrackV1(String spotifyUrl) throws IOException {
+
     // extract id from url
     String trackId = spotifyUrl.substring(spotifyUrl.indexOf("track")
         + "track".length() + 1);

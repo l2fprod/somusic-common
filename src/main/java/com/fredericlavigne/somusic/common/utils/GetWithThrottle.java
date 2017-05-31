@@ -20,6 +20,10 @@ public class GetWithThrottle {
 						.getBytes());
 	}
 
+  public void setAccessToken(String accessToken) {
+    this.basicAuthHeader = accessToken;
+  }
+
 	public synchronized String getBody(String request) throws IOException {
 		String body;
 
@@ -94,4 +98,9 @@ public class GetWithThrottle {
 		return basicAuthHeader == null ? Utils.getBody(request) : Utils
 				.getBodyWithAuthentication(request, basicAuthHeader);
 	}
+
+  public String postBody(String request, byte[] postDataBytes) throws IOException {
+    return Utils.postBodyWithAuthentication(request, basicAuthHeader, postDataBytes);
+  }
+  
 }

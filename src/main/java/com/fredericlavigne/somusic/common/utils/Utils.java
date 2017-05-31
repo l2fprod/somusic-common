@@ -56,6 +56,21 @@ public class Utils {
     return getBody(connection);
   }
 
+
+  public static String postBodyWithAuthentication(String request, String basicAuthHeader, byte[] postDataBytes) throws IOException {
+    URL url = new URL(request);
+    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+    connection.setRequestMethod("POST");
+    connection.setRequestProperty("Connection", "Close");
+    connection.setRequestProperty("Authorization",
+        basicAuthHeader);
+    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    connection.setDoOutput(true);
+    connection.getOutputStream().write(postDataBytes);
+    return getBody(connection);
+  }
+  
   public static String getBody(URLConnection connection) throws IOException {
     InputStream input = connection.getInputStream();
     try {
