@@ -44,7 +44,6 @@ public class SpotifyProvider extends Provider {
 
     fetcher.setAccessToken("Bearer " + (String)json.get("access_token"));
     long seconds = (Long)json.get("expires_in");
-    
     tokenExpiration = System.currentTimeMillis() + seconds * 1000;   
   }
 
